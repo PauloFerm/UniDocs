@@ -4,11 +4,11 @@ Planilla con formato para Presupuesto y Especificaciones Técnicas de obra, con 
 
 ## Funcionalidades implementadas
 
-- [x] Crea carpeta "Entregables" en la dirección del Archivo
-- [ ] Genera archivo "EETT {nombre_proyecto}" en formato pdf.
-- [ ] Genera archivo "EETT {nombre_proyecto} Editable" para entregar en excel sin vinculaciones, manteniendo el formato.
-- [ ] Genera archivo de "Presupuesto {nombre_proyecto}" sin vinculación, comentarios y otros procedimientos de uso interno.
-- [ ] Genera archivo "Itemizado {nombre_proyecto}", similar a "Presupuesto" pero sin cubicaciones y precios unitarios, mantiene fórmulas de subtotales, porcentajes y costo total.
+- [x] Crea carpeta `Entregables/` en la dirección del Archivo
+- [ ] Genera archivo `EETT {nombre_proyecto}` en formato pdf.
+- [ ] Genera archivo `EETT {nombre_proyecto} Editable` para entregar en excel sin vinculaciones, manteniendo el formato.
+- [ ] Genera archivo de `Presupuesto {nombre_proyecto}` sin vinculación, comentarios y otros procedimientos de uso interno.
+- [ ] Genera archivo `Itemizado {nombre_proyecto}`, similar a `Presupuesto` pero sin cubicaciones y precios unitarios, mantiene fórmulas de subtotales, porcentajes y costo total.
 - [ ] Verifica la coherencia en la enumeración entre el Presupuesto y las EETT
 
 ## Forma de Uso
@@ -34,10 +34,4 @@ En caso de errores se puede encontrar una descripción detallada en el [monitor 
 
 ## Desarrollo
 
-Se utiliza el siguiente stack
-
-### Clasp
-
-
-### Typescript
-
+Se utiliza la interfaz [clasp](https://developers.google.com/apps-script/guides/clasp) y el lenguaje [Typescript](https://www.typescriptlang.org/) en su [configuración recomendada](https://developers.google.com/apps-script/guides/typescript) para el desarrollo sobre GoogleAppsScript.
