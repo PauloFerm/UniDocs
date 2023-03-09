@@ -2,6 +2,8 @@ namespace FileManagement {
 
   type Folder = GoogleAppsScript.Drive.Folder;
   type File = GoogleAppsScript.Drive.File;
+  type SpreadsheetFile = GoogleAppsScript.Spreadsheet.Spreadsheet
+
 
   export function parentFolder() {
     let fileId = SpreadsheetApp.getActive().getId();
@@ -9,6 +11,12 @@ namespace FileManagement {
     let parentFolder: Folder = thisFile.getParents().next();
 
     return parentFolder;
+  }
+
+  export function entregablesFolder() {
+    let parent = FileManagement.parentFolder();
+
+    return parent.getFoldersByName("Entregables").next();
   }
 
   export function getOrCreateFolder(folderName: string): Folder {
@@ -39,11 +47,35 @@ namespace FileManagement {
     let pdfFile = DriveApp.createFile(pdfContent);
     
     pdfFile.setName("EETT.pdf");
-    pdfFile.moveTo(FileManagement.parentFolder());
+    pdfFile.moveTo(FileManagement.entregablesFolder());
 
     // copy.setTrashed(true);
 
     return pdfFile;
+  }
+
+  export function saveSheet(
+    spreadsheet: SpreadsheetFile, 
+    sheetName: string, 
+    newSpreadSheet: SpreadsheetFile) {
+    let sheetToExport = spreadsheet.getSheetByName(sheetName);
+    
+    if (!sheetToExport) {
+      throw `There is no sheet called ${sheetName}`;
+    }
+
+    sheetToExport.copyTo(newSpreadSheet);
+
+    return newSpreadSheet;
+  }
+
+  export function createSheetOnSite(spreadsheetName: string): SpreadsheetFile {
+    let costsSpreadsheet = SpreadsheetApp.create(spreadsheetName);
+    let costsFile = DriveApp.getFileById(costsSpreadsheet.getId());
+
+    costsFile.moveTo(FileManagement.entregablesFolder());
+
+    return costsSpreadsheet;
   }
 
 }
