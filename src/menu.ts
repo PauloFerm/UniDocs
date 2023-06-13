@@ -4,8 +4,8 @@ function onOpen() {
     .addSubMenu(ui.createMenu('Exportar')
       .addItem('Presupuesto e Itemizado', 'exportCosts')
       .addItem('EETT', 'printSpecifications'))
-    //.addSubMenu(ui.createMenu('Verificar')
-    //  .addItem('Enumeración', 'checkItems')
+    .addSubMenu(ui.createMenu('Verificar')
+      .addItem('Enumeración', 'enumeration'))
     //  .addItem('Avance', 'checkCompletion'))
     .addItem('TestFunction', 'testFunction')
     .addToUi();
@@ -18,5 +18,6 @@ function testFunction() {
   FileManagement.saveAsPDF(thisFile);
 }
 
-var exportCosts = CreateFiles.exportCosts();
-var printSpecifications = CreateFiles.printSpecifications();
+var exportCosts = ExportFiles.exportCosts();
+var printSpecifications = ExportFiles.printSpecifications();
+var enumeration = Validation.enumeration();
