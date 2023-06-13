@@ -18,6 +18,6 @@ function testFunction() {
   FileManagement.saveAsPDF(thisFile);
 }
 
-var exportCosts = ExportFiles.exportCosts();
-var printSpecifications = ExportFiles.printSpecifications();
-var enumeration = Validation.enumeration();
+var exportCosts = ExportFiles.exportCosts;
+var printSpecifications = ExportFiles.printSpecifications;
+var enumeration = Validation.enumeration;

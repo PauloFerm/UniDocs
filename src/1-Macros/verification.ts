@@ -11,8 +11,8 @@ namespace Validation {
       throw "Problem with Costs or EETT size"
     }
 
-    let costItems = costSheet?.getRange(2, 13, 1, lastCostRow - 12 - 11).getValues();
-    let eettItems = costSheet?.getRange(2, 10, 1, lastEETTRow - 9).getValues();
+    let costItems = costSheet?.getRange(12, 2, lastCostRow - 11 - 11, 1).getValues();
+    let eettItems = eettSheet?.getRange(10, 3, lastEETTRow - 9, 1).getValues();
 
     if (costItems == undefined || eettItems == undefined) {
       throw "Problem with Costs or EETT Sheet size";
@@ -20,7 +20,11 @@ namespace Validation {
 
     function clean1DArray(array: any[][]) {
       let array1D = array.map(line => line[0]);
-      return array1D.filter(item => item != "");
+      let clean = array1D.filter(item => item != "")
+                        .filter(item => item.indexOf("SUBTOTAL") == -1)
+                        .filter(item => item.indexOf("TOTAL OBRAS") == -1);;
+
+      return clean
     }
 
     costItems = clean1DArray(costItems);
