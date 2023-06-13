@@ -5,6 +5,9 @@ namespace FileManagement {
   type SpreadsheetFile = GoogleAppsScript.Spreadsheet.Spreadsheet
 
 
+  /**
+   * @returns Parent folder of the file that runs the File
+   */
   export function parentFolder() {
     let fileId = SpreadsheetApp.getActive().getId();
     let thisFile = DriveApp.getFileById(fileId);
@@ -13,12 +16,18 @@ namespace FileManagement {
     return parentFolder;
   }
 
+  /**
+   * @returns Folder named "Entregables" next to the File
+   */
   export function entregablesFolder() {
     let parent = FileManagement.parentFolder();
 
     return parent.getFoldersByName("Entregables").next();
   }
 
+  /**
+   * Get or create a Folder with the name `folderName`
+   */
   export function getOrCreateFolder(folderName: string): Folder {
 
     let parentFolder = FileManagement.parentFolder();
@@ -41,6 +50,10 @@ namespace FileManagement {
     return newFolder;
   }
 
+  /**
+   * Save the input `file` as PDF in "Entregable" Folder
+   * @returns PDF File
+   */
   export function saveAsPDF(file: File) {
     // let copy = file.makeCopy();
     let pdfContent = file.getAs("application/PDF");
@@ -54,22 +67,34 @@ namespace FileManagement {
     return pdfFile;
   }
 
+  /**
+   * Copy a sheet from a Spreadsheet to another
+   * @param spreadsheet Original Spreadsheet to extract a Sheet
+   * @param sheetName Name of the Sheet to copy 
+   * @param newSpreadSheet New Spreadsheet to insert the Sheet
+   * @returns The New Spreadsheet
+   */
   export function saveSheet(
     spreadsheet: SpreadsheetFile, 
     sheetName: string, 
-    newSpreadSheet: SpreadsheetFile) {
+    newSpreadsheet: SpreadsheetFile) {
     let sheetToExport = spreadsheet.getSheetByName(sheetName);
     
     if (!sheetToExport) {
       throw `There is no sheet called ${sheetName}`;
     }
 
-    sheetToExport.copyTo(newSpreadSheet);
+    sheetToExport.copyTo(newSpreadsheet);
 
-    return newSpreadSheet;
+    return newSpreadsheet;
   }
 
-  export function createSheetOnSite(spreadsheetName: string): SpreadsheetFile {
+  /**
+   * Create a Spreadsheet next to the File
+   * @param spreadsheetName for the new Spreadsheet
+   * @returns The new Spreadsheet
+   */
+  export function createSheetOnSite(spreadsheetName: string) {
     let costsSpreadsheet = SpreadsheetApp.create(spreadsheetName);
     let costsFile = DriveApp.getFileById(costsSpreadsheet.getId());
 
