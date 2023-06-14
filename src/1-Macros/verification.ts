@@ -32,8 +32,8 @@ namespace Validation {
     costItems = clean1DArray(costItems);
     eettItems = clean1DArray(eettItems);
 
-    Logger.log(costItems);
-    Logger.log(eettItems);
+    // Logger.log(costItems);
+    // Logger.log(eettItems);
 
     for (let item in costItems) {
       if (costItems[item] != eettItems[item]) {
