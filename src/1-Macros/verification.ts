@@ -22,7 +22,9 @@ namespace Validation {
       let array1D = array.map(line => line[0]);
       let clean = array1D.filter(item => item != "")
                         .filter(item => item.indexOf("SUBTOTAL") == -1)
-                        .filter(item => item.indexOf("TOTAL OBRAS") == -1);;
+                        .filter(item => item.indexOf("TOTAL OBRAS") == -1)
+                        .filter(item => item.indexOf("TOTAL EQUIPOS") == -1)
+                        .filter(item => item.indexOf("TOTAL EQUIPAMIENTO") == -1);
 
       return clean
     }
@@ -39,8 +41,7 @@ namespace Validation {
       }
     }
 
-    if (costItems == eettItems) {
-      SpreadsheetApp.getUi().alert("Enumeración Correcta");
-    }
+    SpreadsheetApp.getUi().alert("Enumeración Correlativa");
+    
   }
 }

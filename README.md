@@ -9,8 +9,9 @@ Planilla con formato para Presupuesto y Especificaciones Técnicas de obra, con 
 - [x] Genera archivo `EETT {nombre_proyecto} Editable` para entregar en excel sin vinculaciones, manteniendo el formato.
 - [x] Genera archivo de `Presupuesto {nombre_proyecto}` sin vinculación, comentarios y otros procedimientos de uso interno.
 - [x] Genera archivo `Itemizado {nombre_proyecto}`, similar a `Presupuesto` pero sin cubicaciones y precios unitarios, mantiene fórmulas de subtotales, porcentajes y costo total.
-- [ ] Verifica la coherencia en la enumeración entre el Presupuesto y las EETT.
-- [ ] Alerta posibles fallos en la numeración 
+- [x] Verifica la coherencia en la enumeración entre el Presupuesto y las EETT.
+- [ ] Alerta posibles fallos en la numeración.
+- [ ] Enumeración automática al eliminar partidas en desuso
 
 ## Forma de Uso
 
