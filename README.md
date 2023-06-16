@@ -11,7 +11,10 @@ Planilla con formato para Presupuesto y Especificaciones Técnicas de obra, con 
 - [x] Genera archivo `Itemizado {nombre_proyecto}`, similar a `Presupuesto` pero sin cubicaciones y precios unitarios, mantiene fórmulas de subtotales, porcentajes y costo total.
 - [x] Verifica la coherencia en la enumeración entre el Presupuesto y las EETT.
 - [ ] Alerta posibles fallos en la numeración.
-- [ ] Enumeración automática al eliminar partidas en desuso
+- [ ] Gestión de partidas no utilizadas (EETT: #REF!)
+  - [ ] Destacar partidas en desuso
+  - [ ] Eliminar partidas en sesuso
+  - [ ] Reenumerar partidas 
 
 ## Forma de Uso
 
