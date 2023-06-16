@@ -7,7 +7,7 @@ function onOpen() {
     .addSubMenu(ui.createMenu('Verificar')
       .addItem('Enumeración', 'enumeration'))
     //  .addItem('Avance', 'checkCompletion'))
-    .addItem('TestFunction', 'testFunction')
+    //  .addItem('TestFunction', 'testFunction')
     .addToUi();
 }
 
