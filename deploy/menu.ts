@@ -1,13 +1,16 @@
-const inquirer = require('@inquirer/prompts');
-const deploy = require('./deploy.js')
+// const inquirer = require('@inquirer/prompts');
+import { select } from "@inquirer/prompts";
+import * as deploy from "./deploy";
 
-selectProject = async () => {
-    projects = require('./projectsIds.json'); //.map(project => project.name);
+interface Project { name: string, id: string };
 
-    const selectedProject = await inquirer.select({
-        name: "project",
+const selectProject = async () => {
+    let projects: Project[] = require('./projectsIds.json'); 
+        //.map(project => project.name);
+
+    const selectedProject = await select({
         message: "Select a Project to deploy:",
-        choices: projects.map( (project) => {
+        choices: projects.map(project => {
             return {
                 name: project.name,
                 value: project
@@ -18,10 +21,9 @@ selectProject = async () => {
     return selectedProject
 }
 
-launchMenu = async () => {
+const launchMenu = async () => {
 
-    const option = await inquirer.select({
-        name: "action",
+    const option = await select({
         message: "Select an option",
         choices: [
             {
