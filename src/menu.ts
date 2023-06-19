@@ -1,9 +1,14 @@
+// Source code on https://github.com/PauloFerm/UniDocs.git
+
 function onOpen() {
   let ui = SpreadsheetApp.getUi()
   ui.createMenu('Arquitectura')
     .addSubMenu(ui.createMenu('Exportar')
-      .addItem('Presupuesto e Itemizado', 'exportCosts')
-      .addItem('EETT', 'printSpecifications'))
+      .addItem('Presupuesto', 'exportCosts')
+    //  .addItem('Itemizado', 'exportItems')
+    //  .addItem('EETT (PDF)', 'printSpecifications')
+      .addItem('EETT', 'exportSpecifications'))
+
     .addSubMenu(ui.createMenu('Verificar')
       .addItem('Enumeración', 'enumeration'))
     //  .addItem('Avance', 'checkCompletion'))
@@ -19,5 +24,5 @@ function testFunction() {
 }
 
 var exportCosts = ExportFiles.exportCosts;
-var printSpecifications = ExportFiles.printSpecifications;
+var exportSpecifications = ExportFiles.exportSpecifications;
 var enumeration = Validation.enumeration;

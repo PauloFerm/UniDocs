@@ -4,17 +4,26 @@ Planilla con formato para Presupuesto y Especificaciones Técnicas de obra, con 
 
 ## Funcionalidades implementadas
 
-- [x] Crea carpeta `Entregables/` en la dirección del Archivo
-- [x] Genera archivo `EETT {nombre_proyecto}` en formato pdf.
+### Documentos Exportables
+- [ ] Crea carpeta `Entregables/` en la dirección del Archivo
 - [x] Genera archivo `EETT {nombre_proyecto} Editable` para entregar en excel sin vinculaciones, manteniendo el formato.
 - [x] Genera archivo de `Presupuesto {nombre_proyecto}` sin vinculación, comentarios y otros procedimientos de uso interno.
-- [x] Genera archivo `Itemizado {nombre_proyecto}`, similar a `Presupuesto` pero sin cubicaciones y precios unitarios, mantiene fórmulas de subtotales, porcentajes y costo total.
+- [ ] Genera archivo `EETT {nombre_proyecto}` en formato pdf.
+- [ ] Genera archivo `Itemizado {nombre_proyecto}`, similar a `Presupuesto` pero sin cubicaciones y precios unitarios, mantiene fórmulas de subtotales, porcentajes y costo total.
+
+### Verificación de documento
 - [x] Verifica la coherencia en la enumeración entre el Presupuesto y las EETT.
 - [ ] Alerta posibles fallos en la numeración.
 - [ ] Gestión de partidas no utilizadas (EETT: #REF!)
   - [ ] Destacar partidas en desuso
   - [ ] Eliminar partidas en sesuso
   - [ ] Reenumerar partidas 
+
+## Utilidades
+- [x] Gestiona multiples proyectos con el módulo `deploy/`
+- [ ] Clonar base de datos para nuevo proyecto
+- [ ] Actualizar base de datos en proyectos existentes
+  - :warning: Evitar sobreescribir descripciones de proyectos individuales
 
 ## Forma de Uso
 
@@ -25,13 +34,11 @@ Para el correcto uso de la planilla es indispensable el uso de macros escriptas 
 Se debe crear una copia exacta del archivo mediante el menú `Archivo -> Hacer una copia`, ubicar la copia en la carpeta correspondiente al proyecto y es indispensable **no cambiar la extensión a Microsoft Excel**.
 
 ### Modificar Variables Requeridas
-Todas las variables del documento que tengan el formato ${variable} deben ser reemplazadas por los datos correspondientes del proyecto. Estos son: `nombre_proyecto`, `ubicación`, `codigo_bip`, `superficie`. Otras variables pueden ser añadidos posteriormente.
-
+Todas las variables del documento que tengan el formato `${variable}` deben ser reemplazadas por los datos correspondientes del proyecto. Estos son: `nombre_proyecto`, `ubicación`, `codigo_bip`, `superficie`. Otras variables pueden ser añadidos posteriormente.
 
 ### Otorgar Permisos al Script
 
 Al momento de ejecutar el primer comando Google Drive solicita permisos para crear, modificar y eliminar archivos. Para el correcto funcionamiento de las funcionalidades de exportación se deben otorgar todos los permisos.
-
 
 ## Errores
 
