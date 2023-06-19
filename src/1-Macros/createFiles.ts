@@ -39,7 +39,7 @@ namespace ExportFiles {
   
   }
   
-  export function printSpecifications() {
+  export function exportSpecifications() {
     let thisSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     let eettSpreadsheet = FileManagement.createSheetOnSite("EETT " + projectName());
   
@@ -75,7 +75,8 @@ namespace ExportFiles {
       originalBodyRange.getNumRows(),
       originalBodyRange.getNumColumns() 
     ]);
-  
+
+    // TO-DO: Examine originalBodyFormulas and setValue without individual getCell
     for (let row = 1; row < lastRow; row++) {
       let originalItemCell = originalBodyRange.getCell(row, 1);
   
@@ -88,10 +89,17 @@ namespace ExportFiles {
       }
     }
   
+    return eettSpreadsheet;
+  
+  }
+
+  export function printSpecifications() {
+
+    let eettSpreadsheet = ExportFiles.exportSpecifications();
+
     // Wait the previous for loop ends overwrite
     // Utilities.sleep(5000);
-    // FileManagement.saveAsPDF(DriveApp.getFileById(eettSpreadsheet.getId()));
-  
+    FileManagement.saveAsPDF(DriveApp.getFileById(eettSpreadsheet.getId()));
   }
       
 }
