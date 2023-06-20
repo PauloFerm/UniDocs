@@ -1,9 +1,10 @@
-namespace FileManagement {
-
+/**
+ * Module to manage files and folder in Google Drive
+ */
+namespace DriveFS {
   type Folder = GoogleAppsScript.Drive.Folder;
   type File = GoogleAppsScript.Drive.File;
-  type SpreadsheetFile = GoogleAppsScript.Spreadsheet.Spreadsheet
-
+  type SpreadsheetFile = GoogleAppsScript.Spreadsheet.Spreadsheet;
 
   /**
    * @returns Parent folder of the file that runs the File
@@ -17,50 +18,46 @@ namespace FileManagement {
   }
 
   /**
-   * @returns Folder named "Entregables" next to the File
-   */
-  export function entregablesFolder() {
-    let parent = FileManagement.parentFolder();
-
-    return parent.getFoldersByName("Entregables").next();
-  }
-
-  /**
-   * Get or create a Folder with the name `folderName`
+   * Get or create a Folder next to the source file by name
    */
   export function getOrCreateFolder(folderName: string): Folder {
 
-    let parentFolder = FileManagement.parentFolder();
-    let innerFolders = parentFolder.getFolders();
+    let parentFolder = DriveFS.parentFolder();
+    let childFolders = parentFolder.getFolders();
 
-    while (innerFolders.hasNext()) {
-      let innerFolder = innerFolders.next();
+    while (childFolders.hasNext()) {
+      let childFolder = childFolders.next();
 
-      if (innerFolder.getName() == folderName) {
-        Logger.log("Folder already exists");
-        return innerFolder;
+      if (childFolder.getName() == folderName) {
+        Logger.log(`Folder ${folderName} already exists`);
+        return childFolder;
       }
     }
 
-    let newFolder = DriveApp.createFolder(folderName);
-    newFolder.moveTo(parentFolder);
+    // let newFolder = DriveApp.createFolder(folderName);
+    // newFolder.moveTo(parentFolder);
 
-    Logger.log("Folder created");
+    let newFolder = parentFolder.createFolder(folderName);
+    Logger.log(`Folder ${folderName} created`);
 
     return newFolder;
+  }
+
+  export function getOrCreateSpreadsheet(fileName: string) {
+    return
   }
 
   /**
    * Save the input `file` as PDF in "Entregable" Folder
    * @returns PDF File
    */
-  export function saveAsPDF(file: File) {
+  export function saveAsPDF(file: File, folder: Folder) {
     // let copy = file.makeCopy();
     let pdfContent = file.getAs("application/PDF");
     let pdfFile = DriveApp.createFile(pdfContent);
     
     pdfFile.setName("EETT.pdf");
-    pdfFile.moveTo(FileManagement.entregablesFolder());
+    pdfFile.moveTo(folder);
 
     // copy.setTrashed(true);
 
@@ -74,7 +71,7 @@ namespace FileManagement {
    * @param newSpreadSheet New Spreadsheet to insert the Sheet
    * @returns The New Spreadsheet
    */
-  export function saveSheet(
+  export function saveSheetAsFile(
     spreadsheet: SpreadsheetFile, 
     sheetName: string, 
     newSpreadsheet: SpreadsheetFile) {
@@ -91,16 +88,17 @@ namespace FileManagement {
 
   /**
    * Create a Spreadsheet next to the File
-   * @param spreadsheetName for the new Spreadsheet
-   * @returns The new Spreadsheet
+   * @param spreadsheetName Name for the new Spreadsheet
+   * @param folder Destination folder
+   * @returns The new Spreadsheet generated
    */
-  export function createSheetOnSite(spreadsheetName: string) {
-    let costsSpreadsheet = SpreadsheetApp.create(spreadsheetName);
-    let costsFile = DriveApp.getFileById(costsSpreadsheet.getId());
+  export function createSheetIn(spreadsheetName: string, folder: Folder) {
+    let newSpreadSheet = SpreadsheetApp.create(spreadsheetName);
+    let newFile = DriveApp.getFileById(newSpreadSheet.getId());
 
-    costsFile.moveTo(FileManagement.entregablesFolder());
+    newFile.moveTo(folder);
 
-    return costsSpreadsheet;
+    return newSpreadSheet;
   }
 
 }

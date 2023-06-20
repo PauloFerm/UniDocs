@@ -20,7 +20,7 @@ function testFunction() {
   let thisFileId = SpreadsheetApp.getActive().getId();
   let thisFile = DriveApp.getFileById(thisFileId);
 
-  FileManagement.saveAsPDF(thisFile);
+  DriveFS.saveAsPDF(thisFile, ExportFiles.entregablesFolder());
 }
 
 var exportCosts = ExportFiles.exportCosts;

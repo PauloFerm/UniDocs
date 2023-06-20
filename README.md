@@ -5,11 +5,11 @@ Planilla con formato para Presupuesto y Especificaciones Técnicas de obra, con 
 ## Funcionalidades implementadas
 
 ### Documentos Exportables
-- [ ] Crea carpeta `Entregables/` en la dirección del Archivo
+- [x] Crea carpeta `Entregables/` en la dirección del Archivo
 - [x] Genera archivo `EETT {nombre_proyecto} Editable` para entregar en excel sin vinculaciones, manteniendo el formato.
 - [x] Genera archivo de `Presupuesto {nombre_proyecto}` sin vinculación, comentarios y otros procedimientos de uso interno.
+- [x] Genera archivo `Itemizado {nombre_proyecto}`, similar a `Presupuesto` pero sin cubicaciones y precios unitarios, mantiene fórmulas de subtotales, porcentajes y costo total.
 - [ ] Genera archivo `EETT {nombre_proyecto}` en formato pdf.
-- [ ] Genera archivo `Itemizado {nombre_proyecto}`, similar a `Presupuesto` pero sin cubicaciones y precios unitarios, mantiene fórmulas de subtotales, porcentajes y costo total.
 
 ### Verificación de documento
 - [x] Verifica la coherencia en la enumeración entre el Presupuesto y las EETT.
