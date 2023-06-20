@@ -52,12 +52,11 @@ const launchMenu = async () => {
         case "deploy":
             deploy.deployToAllProjects();
             break;
-        case "current":
-            deploy.logCurrentProject();
-            break;
         case "change":
             let selectedProject = await selectProject();
             deploy.changeClaspProject(selectedProject.id);
+            // Continue loging current project
+        case "current":
             deploy.logCurrentProject();
             break;
         default:
