@@ -30,16 +30,20 @@ namespace ExportFiles {
    */
   function exportSheet(sheet: Sheet) {
     let newSpreadsheet = DriveFS.createSheetIn(
-      `${sheet.getName()} ${projectName()}`, 
+      sheet.getName(), 
       ExportFiles.entregablesFolder()
     );
   
     // Delete default empty sheet
-    let emptySheet = newSpreadsheet.getSheetByName("Hoja 1");
-    if (!emptySheet) { throw `There is no sheet called ${"Hoja 1"}`; }
-    newSpreadsheet.deleteSheet(emptySheet);
-
+    let defaultSheet = "Hoja 1";
+    let emptySheet = newSpreadsheet.getSheetByName(defaultSheet);
+    
+    if (!emptySheet) { 
+      throw `There is no sheet called ${defaultSheet}`; 
+    }
+    
     sheet.copyTo(newSpreadsheet);
+    newSpreadsheet.deleteSheet(emptySheet);
 
     return newSpreadsheet;
   }
@@ -103,20 +107,13 @@ namespace ExportFiles {
     let sourceBodyRange = sourceEett.getRange(headRows, 3, lastRow, 2);
     let sourceBodyFormulas = sourceBodyRange.getFormulas();
     let sourceBodyValues = sourceBodyRange.getValues();
-    
-    Logger.log([ 
-      "Body Size: ",
-      sourceBodyRange.getNumRows(),
-      sourceBodyRange.getNumColumns() 
-    ]);
-
     let targetBodyRange = eettSheet.getRange(headRows, 3, lastRow, 2);
 
-    for (let row = 1; row < lastRow; row++) {
+    for (let row = 0; row < lastRow; row++) {
       if (sourceBodyFormulas[row][0] != "") {
-        Logger.log(["Replaced Formula on row ", row]);
-        targetBodyRange.getCell(row, 1).setValue(sourceBodyValues[row][1]);
-        targetBodyRange.getCell(row, 2).setValue(sourceBodyValues[row][2]);
+        // Logger.log(["Replaced Formula on row ", row]);
+        targetBodyRange.getCell(row + 1, 1).setValue(sourceBodyValues[row][0]);
+        targetBodyRange.getCell(row + 1, 2).setValue(sourceBodyValues[row][1]);
       }
     }
 

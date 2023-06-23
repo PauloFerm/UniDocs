@@ -87,7 +87,7 @@ namespace DriveFS {
   }
 
   /**
-   * Create a Spreadsheet next to the File
+   * Create a Spreadsheet next to the File, replace if already exists
    * @param spreadsheetName Name for the new Spreadsheet
    * @param folder Destination folder
    * @returns The new Spreadsheet generated
