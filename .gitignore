@@ -1,3 +1,7 @@
-node_modules/
-*.json
+.clasp.json
 gs/
+src/appsscript.json
+deploy/projectsIds.json
+
+package-lock.json
+node_modules/
