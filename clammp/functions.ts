@@ -1,28 +1,29 @@
-
 import { readFileSync, writeFileSync } from "fs";
 import { exec } from "child_process";
 
-interface Project { name: string, id: string };
-interface ClaspFile { scriptId: string, rootDir: string };
+export interface Project { name: string, id: string };
+export interface ClaspFile { scriptId: string, rootDir: string };
 
-export const logCurrentProject = () => {
+export const currentProject = () => {
     const projects: Project[] = require('./projectsIds.json');
     const clasp: ClaspFile = require('../.clasp.json');
 
     let current = projects.find(project => project.id == clasp.scriptId);
 
-    if (current == undefined) { console.error("Non registered Project"); }
-    else { console.log("Current project:", current.name); }
+    if (current == undefined) { throw "Unregistered Project" }
+    
+    return current
 }
 
 const overwriteId = (path: string, id: string) => {
     let data = readFileSync(path, { encoding: 'utf-8' }); 
-    let newData = data.replace(/"scriptId":"[a-zA-Z0-9_-]*"/, `"scriptId":"${id}"`);
+    let idRegex = /"scriptId":"[a-zA-Z0-9_-]*"/;
+    let newData = data.replace(idRegex, `"scriptId":"${id}"`);
     
     writeFileSync(path, newData, 'utf-8');
 }
 
-export const  changeClaspProject = (id: string) => {
+export const changeClaspProject = (id: string) => {
     // Executed in root directory
     overwriteId('./.clasp.json', id); 
     overwriteId('./gs/.clasp.json', id);

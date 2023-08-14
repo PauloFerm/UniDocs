@@ -8,6 +8,6 @@
     "ts-node": "^10.9.1"
   },
   "scripts": {
-    "menu": "npx ts-node deploy/menu.ts"
+    "menu": "npx ts-node clammp launchMenu"
   }
 }

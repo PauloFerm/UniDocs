@@ -2,9 +2,9 @@
 import { select } from "@inquirer/prompts";
 import * as deploy from "./deploy";
 
-interface Project { name: string, id: string };
+import { Project } from "./deploy";
 
-const selectProject = async () => {
+const selectProjectMenu = async () => {
     let projects: Project[] = require('./projectsIds.json'); 
         //.map(project => project.name);
 
@@ -21,10 +21,11 @@ const selectProject = async () => {
     return selectedProject
 }
 
-const launchMenu = async () => {
+const mainMenu = async () => {
+    let currentProject = deploy.currentProject();
 
     const option = await select({
-        message: "Select an option",
+        message: `Current project: ${currentProject.name}`,
         choices: [
             {
                 name: "Update current project",
@@ -33,10 +34,6 @@ const launchMenu = async () => {
             {
                 name: "Deploy to all projects",
                 value: "deploy"
-            },
-            {
-                name: "View current project",
-                value: "current"
             },
             {
                 name: "Change current project",
@@ -53,15 +50,16 @@ const launchMenu = async () => {
             deploy.deployToAllProjects();
             break;
         case "change":
-            let selectedProject = await selectProject();
+            let selectedProject = await selectProjectMenu();
             deploy.changeClaspProject(selectedProject.id);
             // Continue loging current project
-        case "current":
-            deploy.logCurrentProject();
-            break;
+        // case "current":
+        //     let currentProject = deploy.currentProject();
+        //     console.log("Current project:", currentProject.name)
+        //     break;
         default:
             console.log("No action for", option);
     }
 }
 
-launchMenu();
+export const launchMenu = mainMenu();
