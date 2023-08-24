@@ -59,10 +59,10 @@ namespace ExportFiles {
     // Create temporal Sheet
     sourceSheet?.copyTo(sourceSpreadsheet);
 
-    let costsSheet = sourceSpreadsheet.getSheetByName(`Copy of ${sheetName}`);
-    if (costsSheet == null) { 
-      throw `There is no sheet called Copy of ${sheetName}`
-    }
+    const newSheetName = `Copy of ${sheetName}`;
+    let costsSheet = sourceSpreadsheet.getSheetByName(newSheetName);
+    
+    if (!costsSheet) { throw `There is no sheet called ${newSheetName}` }
 
     // Format for 'Presupuesto': Delete Check columns
     costsSheet.setName(`${sheetName} ${projectName()}`);

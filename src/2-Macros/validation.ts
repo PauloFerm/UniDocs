@@ -8,14 +8,14 @@ namespace Validation {
     let lastCostRow = costSheet?.getLastRow();
     let lastEETTRow = eettSheet?.getLastRow();
 
-    if (lastCostRow == undefined || lastEETTRow == undefined) {
+    if (!lastCostRow || !lastEETTRow) {
       throw "Problem with Costs or EETT size"
     }
 
     let costItems = costSheet?.getRange(12, 2, lastCostRow - 11 - 11, 1).getValues();
     let eettItems = eettSheet?.getRange(10, 3, lastEETTRow - 9, 1).getValues();
 
-    if (costItems == undefined || eettItems == undefined) {
+    if (!costItems || !eettItems) {
       throw "Problem with Costs or EETT Sheet size";
     }
 
