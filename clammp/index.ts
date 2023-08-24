@@ -1,12 +1,9 @@
 // const inquirer = require('@inquirer/prompts');
 import { select } from "@inquirer/prompts";
-import * as functions from "./functions";
-
-import { Project } from "./functions";
+import * as project from "./project";
 
 const selectProjectMenu = async () => {
-  let projects: Project[] = require('./projectsIds.json'); 
-  //.map(project => project.name);
+  let projects: project.url[] = require('./projectsIds.json'); 
 
   const selectedProject = await select({
     message: "Select a Project to deploy:",
@@ -22,7 +19,7 @@ const selectProjectMenu = async () => {
 }
 
 const mainMenu = async () => {
-  let currentProject = functions.currentProject();
+  let currentProject = project.current();
 
   const option = await select({
     message: `Current project: ${currentProject.name}`,
@@ -44,14 +41,14 @@ const mainMenu = async () => {
 
   switch (option) {
     case "update":
-      functions.updateCurrentProject();
+      project.updateCurrent();
       break;
     case "deploy":
-      functions.deployToAllProjects();
+      project.deployToAll();
       break;
     case "change":
       let selectedProject = await selectProjectMenu();
-      functions.changeClaspProject(selectedProject.id);
+      project.changeCurrent(selectedProject.id);
       console.log(`Current project: ${selectedProject.name}`);
       break;
     default:

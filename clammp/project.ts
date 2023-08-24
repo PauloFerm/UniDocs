@@ -1,11 +1,11 @@
 import { readFileSync, writeFileSync } from "fs";
 import { exec } from "child_process";
 
-export interface Project { name: string, id: string };
+export interface url { name: string, id: string };
 export interface ClaspFile { scriptId: string, rootDir: string };
 
-export const currentProject = () => {
-  const projects: Project[] = require('./projectsIds.json');
+export const current = () => {
+  const projects: url[] = require('./projectsIds.json');
   const clasp: ClaspFile = require('../.clasp.json');
 
   let current = projects.find(project => project.id == clasp.scriptId);
@@ -23,7 +23,7 @@ const overwriteId = (path: string, id: string) => {
   writeFileSync(path, newData, 'utf-8');
 }
 
-export const changeClaspProject = (id: string) => {
+export const changeCurrent = (id: string) => {
   // Executed in root directory
   overwriteId('./.clasp.json', id); 
   overwriteId('./gs/.clasp.json', id);
@@ -40,17 +40,18 @@ const runCommand = async (cmd: string) => {
   });
 }
 
-export const updateCurrentProject = () => {
+export const updateCurrent = () => {
   let command = "clasp push && cd gs && clasp pull && cd ..";
   runCommand(command);
 }
 
-export const deployToAllProjects = async () => {
-  const projects: Project[] = require('./projectsIds.json');
+// I think this is not working
+export const deployToAll = async () => {
+  const projects: url[] = require('./projectsIds.json');
 
   console.log("Proyectos:");
   for (let project of projects) {
-    await changeClaspProject(project.id);
+    await changeCurrent(project.id);
     runCommand("clasp push");
   }
 }
